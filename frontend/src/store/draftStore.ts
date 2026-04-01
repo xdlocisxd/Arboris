@@ -1,18 +1,14 @@
 import { get, set } from 'idb-keyval';
-import { create } from 'zustand';
-
-// Assuming Zustand isn't strictly necessary if it hasn't been installed, I'll fallback to a simpler React Hook + Context or just install Zustand. 
-// Ah, I ran `npm install idb-keyval` but not zustand. Let me just use a generic local approach with a custom hook.
-
 export interface TreeData {
   id: string; // Draft ID
   step1?: { species: string; location: string; date: string };
   step2?: { totalHeight: string; firstBranchHeight: string; dap: string };
   step3?: { state: string; balance: string; structureIssue: string };
   step4?: { pestType: string; intensity: string; affectedPart: string };
-  step5?: { injuryType: string; ecologyIndicators: string; phenology: string };
-  step6?: { electricalWiring: string };
-  step7?: { actionsPerformed: string[]; recommendedActions: string[]; quality: string };
+  step5?: { indicators: string[]; diversity: string };
+  step6?: { states: string[]; intensity: string };
+  step7?: { electricalWiring: string };
+  step8?: { managementType: string; urgency: string };
   photos?: string[]; // Array of base64 strings or Object URLs
   lastModified: number;
 }
