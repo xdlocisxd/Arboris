@@ -1,29 +1,38 @@
-import React from 'react';
-import { Home, Plus, Activity, Map } from 'lucide-react';
+import { Home, Plus, Search, Map, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
 
 interface AppLayoutProps {
   children: React.ReactNode;
-  activeTab?: 'dashboard' | 'register' | 'map' | 'activity';
+  activeTab?: 'dashboard' | 'register' | 'map' | 'search';
   onTabChange?: (tab: any) => void;
 }
 
 export function AppLayout({ children, activeTab = 'dashboard', onTabChange }: AppLayoutProps) {
+  const { logout } = useAuth();
+  
   const tabs = [
     { id: 'dashboard', icon: Home, label: 'Início' },
     { id: 'map', icon: Map, label: 'Mapa' },
     { id: 'register', icon: Plus, label: 'Monitorar', isMain: true },
-    { id: 'activity', icon: Activity, label: 'Atividade' },
+    { id: 'search', icon: Search, label: 'Buscar' },
   ];
 
   return (
     <div className="flex h-screen flex-col bg-stone-100 text-stone-900 overflow-hidden selection:bg-green-700 selection:text-white">
       {/* Top App Bar with brutalist minimalist look */}
-      <header className="flex h-20 items-end px-6 pb-4 bg-stone-50 z-10 shadow-sm border-b border-stone-200/50 flex-shrink-0">
+      <header className="flex items-center justify-between h-20 px-6 pt-8 pb-4 bg-stone-50 z-10 shadow-sm border-b border-stone-200/50 flex-shrink-0">
         <h1 className="text-3xl font-bold tracking-tight text-green-950">
           Arboris
         </h1>
+        <button 
+          onClick={logout}
+          className="p-2 text-stone-400 hover:text-red-600 transition-colors rounded-full hover:bg-stone-100"
+          title="Sair"
+        >
+          <LogOut className="h-6 w-6" />
+        </button>
       </header>
 
       {/* Main Content Area */}

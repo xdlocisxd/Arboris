@@ -11,7 +11,7 @@ import { useAuth } from '@/context/AuthContext';
 
 const steps = [
   'Info Básica', 'Medições', 'Condição', 'Fitossanidade',
-  'Ecologia', 'Infraestrutura', 'Manejo'
+  'Ecologia', 'Fenologia', 'Infraestrutura', 'Manejo'
 ];
 
 export function TreeRegistration() {
@@ -56,8 +56,11 @@ export function TreeRegistration() {
       setTimeout(() => {
         window.location.reload(); // Simple way to go back to dashboard in this tab-based app
       }, 1500);
-    } catch (error) {
-      console.error('Sync failed:', error);
+    } catch (error: any) {
+      console.error('Full Sync Error:', error);
+      if (error.body) {
+        console.error('Server side error body:', await (typeof error.body === 'string' ? JSON.parse(error.body) : error.body));
+      }
       setSyncStatus('error');
     } finally {
       setIsSyncing(false);
@@ -97,6 +100,31 @@ export function TreeRegistration() {
                 placeholder="Nome da praça ou parque" 
                 value={data.step1?.location || ''}
                 onChange={e => handleChange('step1', 'location', e.target.value)}
+              />
+            </div>
+          </div>
+        );
+      case 1:
+        return (
+          <div className="space-y-6">
+            <div>
+              <label className="block text-stone-900 font-bold mb-3 text-lg">Altura Total (m)</label>
+              <Input 
+                type="number"
+                step="0.1"
+                placeholder="ex. 12.5" 
+                value={data.step2?.totalHeight || ''}
+                onChange={e => handleChange('step2', 'totalHeight', e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-stone-900 font-bold mb-3 text-lg">DAP (cm)</label>
+              <Input 
+                type="number"
+                step="0.1"
+                placeholder="ex. 45.0" 
+                value={data.step2?.dap || ''}
+                onChange={e => handleChange('step2', 'dap', e.target.value)}
               />
             </div>
           </div>
@@ -162,7 +190,70 @@ export function TreeRegistration() {
             </div>
           </div>
         );
+      case 4:
+        return (
+          <div className="space-y-10">
+            <div>
+              <label className="block text-stone-900 font-bold mb-4 text-xl">Presença de Vida e Biodiversidade</label>
+              <ChipGroup
+                multiple
+                options={[
+                  { label: 'Artrópodes (insetos)', value: 'arthropods' },
+                  { label: 'Líquens', value: 'lichens' },
+                  { label: 'Epífitas', value: 'epiphytes' },
+                  { label: 'Parasitas', value: 'parasites' },
+                ]}
+                value={data.step5?.indicators || []}
+                onChange={val => handleChange('step5', 'indicators', val)}
+              />
+            </div>
+            <div>
+              <label className="block text-stone-900 font-bold mb-4 text-xl">Diversidade Observada</label>
+              <ChipGroup
+                options={[
+                  { label: 'Baixa', value: 'baixa' },
+                  { label: 'Média', value: 'media' },
+                  { label: 'Alta', value: 'alta' },
+                  { label: 'Nenhuma', value: 'none' },
+                ]}
+                value={data.step5?.diversity || ''}
+                onChange={val => handleChange('step5', 'diversity', val)}
+              />
+            </div>
+          </div>
+        );
       case 5:
+        return (
+          <div className="space-y-10">
+            <div>
+              <label className="block text-stone-900 font-bold mb-4 text-xl">Estados Fenológicos Atuais</label>
+              <ChipGroup
+                multiple
+                options={[
+                  { label: 'Folha', value: 'leaf' },
+                  { label: 'Flor', value: 'flower' },
+                  { label: 'Fruto', value: 'fruit' },
+                ]}
+                value={data.step6?.states || []}
+                onChange={val => handleChange('step6', 'states', val)}
+              />
+            </div>
+            <div>
+              <label className="block text-stone-900 font-bold mb-4 text-xl">Intensidade Fenológica</label>
+              <ChipGroup
+                options={[
+                  { label: 'Início', value: 'start' },
+                  { label: 'Pico', value: 'peak' },
+                  { label: 'Fim', value: 'end' },
+                  { label: 'Ausente', value: 'none' },
+                ]}
+                value={data.step6?.intensity || ''}
+                onChange={val => handleChange('step6', 'intensity', val)}
+              />
+            </div>
+          </div>
+        );
+      case 6:
         return (
           <div className="space-y-8">
             <div>
@@ -173,20 +264,46 @@ export function TreeRegistration() {
                   { label: 'Sim, distância segura', value: 'safe' },
                   { label: 'Não', value: 'no' },
                 ]}
-                value={data.step6?.electricalWiring || ''}
-                onChange={val => handleChange('step6', 'electricalWiring', val)}
+                value={data.step7?.electricalWiring || ''}
+                onChange={val => handleChange('step7', 'electricalWiring', val)}
+              />
+            </div>
+          </div>
+        );
+      case 7:
+        return (
+          <div className="space-y-10">
+            <div>
+              <label className="block text-stone-900 font-bold mb-4 text-xl">Tipo de Manejo Recomendado</label>
+              <ChipGroup
+                options={[
+                  { label: 'Poda', value: 'poda' },
+                  { label: 'Adubação', value: 'adubacao' },
+                  { label: 'Irrigação', value: 'irrigacao' },
+                  { label: 'Remoção', value: 'remocao' },
+                  { label: 'Nenhum', value: 'none' },
+                ]}
+                value={data.step8?.managementType || ''}
+                onChange={val => handleChange('step8', 'managementType', val)}
+              />
+            </div>
+            <div>
+              <label className="block text-stone-900 font-bold mb-4 text-xl">Urgência da Ação</label>
+              <ChipGroup
+                options={[
+                  { label: 'Baixa', value: 'baixa' },
+                  { label: 'Média', value: 'media' },
+                  { label: 'Alta', value: 'alta' },
+                  { label: 'Urgente', value: 'imediata' },
+                ]}
+                value={data.step8?.urgency || ''}
+                onChange={val => handleChange('step8', 'urgency', val)}
               />
             </div>
           </div>
         );
       default:
-        // Generic block to symbolize other steps
-        return (
-          <div className="flex flex-col items-center justify-center p-8 text-center bg-stone-100 rounded-3xl border border-dashed border-stone-300">
-            <h3 className="text-xl font-bold text-stone-500 mb-2">Detalhes de: {steps[currentStep]}</h3>
-            <p className="text-stone-400">Campos adicionais para esta seção.</p>
-          </div>
-        );
+        return null;
     }
   };
 

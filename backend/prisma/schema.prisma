@@ -26,9 +26,9 @@ model Tree {
   // Geographical Point (Longitude, Latitude)
   coordinates       Unsupported("geometry(Point, 4326)")?
   dateField         String?
-  totalHeight       String?
-  firstBranchHeight String?
-  dap               String?
+  totalHeight       Float?
+  firstBranchHeight Float?
+  dap               Float?
   generalState      String?
   hasBalance        String?
   structureIssue    String?
@@ -36,9 +36,11 @@ model Tree {
   pestIntensity     String?
   affectedPart      String?
   injuryType        String?
-  ecologyIndicators String?
-  phenology         String?
+  ecologyIndicators Json?
+  phenology         Json?
   electricalWiring  String?
+  managementType    String?
+  urgency           String?
   userId            String
   user              User     @relation(fields: [userId], references: [id])
   createdAt         DateTime @default(now())

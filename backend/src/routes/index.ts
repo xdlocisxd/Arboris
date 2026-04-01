@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { register, login } from '../controllers/auth.controller';
-import { syncTrees, getTrees } from '../controllers/tree.controller';
+import { syncTrees, getTrees, getTreeById } from '../controllers/tree.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -12,5 +12,6 @@ router.post('/auth/login', login);
 // Trees
 router.post('/trees/sync', authMiddleware, syncTrees);
 router.get('/trees', authMiddleware, getTrees);
+router.get('/trees/:id', authMiddleware, getTreeById);
 
 export default router;
