@@ -24,7 +24,7 @@ export function AppLayout({ children, activeTab = 'dashboard', onTabChange }: Ap
       {/* Top App Bar with brutalist minimalist look */}
       <header className="flex items-center justify-between h-20 px-6 pt-8 pb-4 bg-stone-50 z-10 shadow-sm border-b border-stone-200/50 flex-shrink-0">
         <h1 className="text-3xl font-bold tracking-tight text-green-950">
-          Arboris
+          FloraTrack
         </h1>
         <button 
           onClick={logout}

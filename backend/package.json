@@ -1,5 +1,5 @@
 {
-  "name": "arboris-backend",
+  "name": "flora-track-backend",
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {

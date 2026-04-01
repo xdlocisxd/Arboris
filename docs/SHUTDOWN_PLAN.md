@@ -1,4 +1,4 @@
-# Project Shutdown Plan - Arboris
+# Project Shutdown Plan - FloraTrack
 
 ## 📋 Overview
 Coordinate the clean shutdown of all project services (Database, Backend, Frontend).
@@ -17,4 +17,4 @@ Coordinate the clean shutdown of all project services (Database, Backend, Fronte
 ## ✅ Success Criteria
 - [x] Port 3000 (Backend) is free.
 - [x] Port 5173 (Frontend) is free.
-- [x] Docker container `arboris_postgis` is stopped/removed.
+- [x] Docker container `floratrack_postgis` is stopped/removed.

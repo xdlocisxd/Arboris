@@ -1,6 +1,6 @@
-# 🌲 Guia de Self-Hosting: Arboris + Cloudflare Tunnel (Windows)
+# 🌲 Guia de Self-Hosting: FloraTrack + Cloudflare Tunnel (Windows)
 
-Este guia descreve como hospedar o Arboris na sua própria máquina de forma segura, usando o **Cloudflare Tunnel** para lidar com seu IP dinâmico e fornecer **HTTPS** automático.
+Este guia descreve como hospedar o FloraTrack na sua própria máquina de forma segura, usando o **Cloudflare Tunnel** para lidar com seu IP dinâmico e fornecer **HTTPS** automático.
 
 ## 🚀 Requisitos
 1.  Um domínio adicionado e ativo no [Cloudflare Dashboard](https://dash.cloudflare.com/).
@@ -32,11 +32,11 @@ O Cloudflare fornece um executável leve que cria a ponte entre seu PC e a rede 
 
 ---
 
-## 🏗 Passo 3: Criar o Túnel "Arboris-Server"
+## 🏗 Passo 3: Criar o Túnel "FloraTrack-Server"
 
 1.  Crie o túnel:
     ```powershell
-    cloudflared tunnel create arboris-server
+    cloudflared tunnel create floratrack-server
     ```
     *Anote o **ID do Túnel** que aparecerá no terminal.*
 
@@ -66,10 +66,10 @@ Agora precisamos "avisar" ao seu domínio que ele deve usar esse túnel.
 
 ```powershell
 # Aponta o domínio principal para o túnel
-cloudflared tunnel route dns arboris-server seu-dominio.com
+cloudflared tunnel route dns floratrack-server seu-dominio.com
 
 # Aponta o subdomínio da API para o túnel
-cloudflared tunnel route dns arboris-server api.seu-dominio.com
+cloudflared tunnel route dns floratrack-server api.seu-dominio.com
 ```
 
 ---
@@ -78,14 +78,14 @@ cloudflared tunnel route dns arboris-server api.seu-dominio.com
 
 Para rodar manualmente e testar:
 ```powershell
-cloudflared tunnel run arboris-server
+cloudflared tunnel run floratrack-server
 ```
 
 ---
 
 ## 🎯 Ajustes Importantes no Código (Critical)
 
-Como agora você tem um domínio real e HTTPS, o Arboris precisa saber disso:
+Como agora você tem um domínio real e HTTPS, o FloraTrack precisa saber disso:
 
 1.  **Frontend (`.env`)**:
     *   Mude a URL da API de `http://localhost:3000` para `https://api.seu-dominio.com`.
@@ -101,4 +101,4 @@ Para que o túnel inicie sempre que o Windows ligar:
 2.  Isso transforma o túnel em um **Serviço do Windows**, rodando em silêncio no fundo.
 
 ---
-*Este arquivo foi gerado para auxiliar no processo de deploy local do Arboris.*
+*Este arquivo foi gerado para auxiliar no processo de deploy local do FloraTrack.*

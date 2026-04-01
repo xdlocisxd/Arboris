@@ -18,5 +18,5 @@ app.use('/api', routes);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🌲 Arboris API running on port ${PORT}`);
+  console.log(`🌲 FloraTrack API running on port ${PORT}`);
 });

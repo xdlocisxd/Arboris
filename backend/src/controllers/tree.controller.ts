@@ -62,9 +62,7 @@ export const getTrees = async (req: AuthRequest, res: Response) => {
   if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
 
   try {
-    const trees = await prisma.tree.findMany({
-      where: { userId: req.user.id }
-    });
+    const trees = await prisma.tree.findMany();
     res.json({ trees });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
@@ -78,7 +76,7 @@ export const getTreeById = async (req: AuthRequest, res: Response) => {
 
   try {
     const tree = await prisma.tree.findFirst({
-      where: { id, userId: req.user.id }
+      where: { id }
     });
     if (!tree) return res.status(404).json({ error: 'Tree not found' });
     res.json({ tree });

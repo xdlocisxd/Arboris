@@ -1,0 +1,9 @@
+tunnel: 285d25b8-656e-4873-b5b3-cc26f985d7b7
+credentials-file: C:\Users\Satrux\.cloudflared\285d25b8-656e-4873-b5b3-cc26f985d7b7.json
+
+ingress:
+  - hostname: floratrack.online
+    service: http://127.0.0.1:80
+  - hostname: www.floratrack.online
+    service: http://127.0.0.1:80
+  - service: http_status:404

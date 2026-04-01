@@ -1,7 +1,7 @@
-# Project Startup Plan - Arboris
+# Project Startup Plan - FloraTrack
 
 ## 📋 Overview
-Coordinate the startup of the multi-service Arboris project (Database, Backend, Frontend).
+Coordinate the startup of the multi-service FloraTrack project (Database, Backend, Frontend).
 
 ## 🛠️ Tech Stack
 - **Database**: PostGIS (Docker Compose)
@@ -21,7 +21,7 @@ Coordinate the startup of the multi-service Arboris project (Database, Backend, 
 - [x] Task 3: Start frontend in background (`cd frontend && npm run dev`).
 
 ## ✅ Success Criteria
-- [x] Docker container `arboris_postgis` is running.
+- [x] Docker container `floratrack_postgis` is running.
 - [x] Backend is accessible at `http://localhost:3000`.
 - [x] Frontend is accessible at `http://localhost:5173`.
 - [x] Project logs are being captured.
